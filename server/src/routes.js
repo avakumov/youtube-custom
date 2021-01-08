@@ -1,11 +1,11 @@
-import express from "express";
+import express from "express"
 
 function getRoutes() {
-  const router = express.Router();
+  const router = express.Router()
   router.get("/", (req, res) => {
-    res.send("Hello");
-  });
+    res.send("Hello")
+  })
 
-  return router;
+  return router
 }
-export { getRoutes };
+export { getRoutes }

@@ -7,7 +7,13 @@
     "node": "14.15.4"
   },
   "scripts": {
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "format": "./node_modules/prettier/bin-prettier.js --write ./**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc && git add -u"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format"
+    }
   },
   "author": "Vladimir Avakumov",
   "license": "ISC",
@@ -21,6 +27,8 @@
     "@babel/core": "^7.13.1",
     "@babel/preset-env": "^7.13.5",
     "@babel/register": "^7.13.0",
-    "nodemon": "^2.0.7"
+    "husky": "^4.3.8",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1"
   }
 }

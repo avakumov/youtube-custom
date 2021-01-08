@@ -1,4 +1,4 @@
-const package = require("../package.json");
+const package = require("../package.json")
 
 module.exports = {
   presets: [
@@ -11,4 +11,4 @@ module.exports = {
       },
     ],
   ],
-};
+}

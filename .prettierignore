@@ -1,0 +1,9 @@
+node_modules/
+package-lock.json
+todo.md
+README.md
+dist/
+
+client/node_modules/
+client/package-lock.json
+client/build/
