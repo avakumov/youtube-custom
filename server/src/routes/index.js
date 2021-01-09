@@ -1,10 +1,9 @@
 import express from "express"
+import { getAuthRoutes } from "./auth"
 
 function getRoutes() {
   const router = express.Router()
-  router.get("/", (req, res) => {
-    res.send("Hello")
-  })
+  router.use("/auth", getAuthRoutes())
 
   return router
 }

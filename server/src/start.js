@@ -3,7 +3,7 @@ import path from "path"
 import cors from "cors"
 import dotenv from "dotenv"
 
-import { getRoutes } from "./routes.js"
+import { getRoutes } from "./routes"
 
 dotenv.config()
 
