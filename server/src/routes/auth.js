@@ -24,7 +24,7 @@ async function googleLogin(req, res) {
 
   console.log("USER:", name, email)
 
-  const tokenPayload = { id: user.id }
+  const tokenPayload = { id: email } //TODO replace email to user.id
   const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   })
