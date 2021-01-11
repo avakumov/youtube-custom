@@ -1,8 +1,12 @@
 import express from "express"
 import jwt from "jsonwebtoken"
+
+import { PrismaClient } from "@prisma/client"
 import { OAuth2Client } from "google-auth-library"
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENt_ID)
+
+const prisma = new PrismaClient()
 
 function getAuthRoutes() {
   const router = express.Router()
@@ -22,9 +26,23 @@ async function googleLogin(req, res) {
 
   const { name, picture, email } = ticket.getPayload()
 
-  console.log("USER:", name, email)
+  let user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  })
 
-  const tokenPayload = { id: email } //TODO replace email to user.id
+  if (!user) {
+    user = await prisma.user.create({
+      data: {
+        email,
+        username: name,
+        avatar: picture,
+      },
+    })
+  }
+
+  const tokenPayload = { id: user.id }
   const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   })
