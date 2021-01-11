@@ -11,7 +11,10 @@
     "dev:server": "nodemon server",
     "dev:client": "cd client && npm start",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "format": "./node_modules/prettier/bin-prettier.js --write ./**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc && git add -u"
+    "format": "./node_modules/prettier/bin-prettier.js --write ./**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc && git add -u",
+    "migrate": "prisma migrate dev --preview-feature",
+    "generate": "prisma generate",
+    "studio": "prisma studio"
   },
   "husky": {
     "hooks": {
@@ -21,6 +24,7 @@
   "author": "Vladimir Avakumov",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^2.17.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -35,6 +39,7 @@
     "concurrently": "^6.0.0",
     "husky": "^4.3.8",
     "nodemon": "^2.0.7",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "prisma": "^2.17.0"
   }
 }
