@@ -2,6 +2,7 @@ import axios from "axios"
 
 export const client = axios.create({
   baseURL: "http://localhost:5555/api/v1",
+  withCredentials: true,
 })
 
 export function authenticate(response) {
@@ -12,7 +13,7 @@ export function authenticate(response) {
   })
     .then((res) => {
       console.log("Sign in Success: ", res)
-      window.location.assign(window.location.href)
+      //window.location.assign(window.location.href)
     })
     .catch((err) => {
       console.log("Sign in error: ", err.response)

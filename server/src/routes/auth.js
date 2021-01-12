@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken"
 
 import { PrismaClient } from "@prisma/client"
 import { OAuth2Client } from "google-auth-library"
+import { protect } from "../middleware/auth"
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENt_ID)
 
@@ -12,9 +13,16 @@ function getAuthRoutes() {
   const router = express.Router()
 
   router.post("/google-login", googleLogin)
+  router.get("/me", protect, me)
   router.get("/signout", signout)
 
   return router
+}
+
+async function me(req, res) {
+  const user = req.user
+
+  res.status(200).json({ user })
 }
 
 async function googleLogin(req, res) {
