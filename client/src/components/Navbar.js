@@ -4,6 +4,7 @@ import Wrapper from "../styles/Navbar"
 import GoogleAuth from "./GoogleAuth"
 import { AppsIcon, HamburgerIcon, LogoIcon, SettingsIcon } from "./Icons"
 import { useAuth } from "../context/auth-context"
+import Search from "./Search"
 
 function Navbar({ toggleSidebarOpen }) {
   const user = useAuth()
@@ -23,6 +24,7 @@ function Navbar({ toggleSidebarOpen }) {
           </NavLink>
         </span>
       </div>
+      <Search />
 
       <ul>
         <li>{user ? <AppsIcon /> : <SettingsIcon />}</li>
