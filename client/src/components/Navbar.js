@@ -5,6 +5,7 @@ import GoogleAuth from "./GoogleAuth"
 import { AppsIcon, HamburgerIcon, LogoIcon, SettingsIcon } from "./Icons"
 import { useAuth } from "../context/auth-context"
 import Search from "./Search"
+import UserDropdown from "./UserDropdown"
 
 function Navbar({ toggleSidebarOpen }) {
   const user = useAuth()
@@ -28,9 +29,7 @@ function Navbar({ toggleSidebarOpen }) {
 
       <ul>
         <li>{user ? <AppsIcon /> : <SettingsIcon />}</li>
-        <li>
-          <GoogleAuth />
-        </li>
+        <li>{user ? <UserDropdown user={user} /> : <GoogleAuth />}</li>
       </ul>
     </Wrapper>
   )

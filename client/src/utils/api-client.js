@@ -13,9 +13,14 @@ export function authenticate(response) {
   })
     .then((res) => {
       console.log("Sign in Success: ", res)
-      //window.location.assign(window.location.href)
+      window.location.assign(window.location.href)
     })
     .catch((err) => {
       console.log("Sign in error: ", err.response)
     })
+}
+
+export async function signoutUser() {
+  await client.get("/auth/signout")
+  window.location.pathname = "/"
 }
