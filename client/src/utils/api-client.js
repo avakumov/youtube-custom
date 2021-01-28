@@ -1,5 +1,7 @@
 import axios from "axios"
 
+import { queryCache } from "react-query"
+
 export const client = axios.create({
   baseURL: "http://localhost:5555/api/v1",
   withCredentials: true,
@@ -23,4 +25,12 @@ export function authenticate(response) {
 export async function signoutUser() {
   await client.get("/auth/signout")
   window.location.pathname = "/"
+}
+
+export async function addVideo(video) {
+  await client.post("/videos", video)
+}
+
+export async function addVideoView(videoId) {
+  await client.get(`/videos/${videoId}/view`)
 }
