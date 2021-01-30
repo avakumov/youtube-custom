@@ -7,6 +7,7 @@ import SnackbarProvider from "react-simple-snackbar"
 import Navbar from "./components/Navbar"
 import { darkTheme } from "./styles/theme"
 import GlobalStyle from "./styles/GlobalStyle"
+import Home from "./pages/Home"
 
 const queryClient = new QueryClient()
 
@@ -19,7 +20,9 @@ function App() {
             <ThemeProvider theme={darkTheme}>
               <GlobalStyle />
               <Navbar />
-              <Switch></Switch>
+              <Switch>
+                <Route to="/" component={Home} />
+              </Switch>
             </ThemeProvider>
           </Router>
         </SnackbarProvider>
