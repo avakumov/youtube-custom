@@ -13,6 +13,21 @@ function getVideoRoutes() {
   return router
 }
 
+export async function getVideoViews(videos) {
+  for (const video of videos) {
+    const views = await prisma.view.count({
+      where: {
+        videoId: {
+          equals: video.id,
+        },
+      },
+    })
+    video.views = views
+  }
+
+  return videos
+}
+
 async function getRecommendedVideos(req, res) {
   let videos = await prisma.video.findMany({
     include: {

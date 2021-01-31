@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar"
 import { darkTheme } from "./styles/theme"
 import GlobalStyle from "./styles/GlobalStyle"
 import Home from "./pages/Home"
+import NotFound from "./pages/NotFound"
 
 const queryClient = new QueryClient()
 
@@ -21,7 +22,8 @@ function App() {
               <GlobalStyle />
               <Navbar />
               <Switch>
-                <Route to="/" component={Home} />
+                <Route exact path="/" component={Home} />
+                <Route path="*" component={NotFound} />
               </Switch>
             </ThemeProvider>
           </Router>
