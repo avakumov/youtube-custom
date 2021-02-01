@@ -3,6 +3,28 @@ import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
+export async function getAuthUser(req, res, next) {
+  if (!req.cookies.token) {
+    req.user = null
+    return next()
+  }
+
+  const token = req.cookies.token
+  const decoded = jwt.verify(token, process.env.JWT_SECRET)
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: decoded.id,
+    },
+    include: {
+      videos: true,
+    },
+  })
+
+  req.user = user
+  next()
+}
+
 export async function protect(req, res, next) {
   console.log("COOKIES: ", req.cookies.token)
   if (!req.cookies.token) {

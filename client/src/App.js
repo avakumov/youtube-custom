@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar"
 import { darkTheme } from "./styles/theme"
 import GlobalStyle from "./styles/GlobalStyle"
 import Home from "./pages/Home"
+import WatchVideo from "./pages/WatchVideo"
 import NotFound from "./pages/NotFound"
 
 const queryClient = new QueryClient()
@@ -23,6 +24,7 @@ function App() {
               <Navbar />
               <Switch>
                 <Route exact path="/" component={Home} />
+                <Route path="/watch/:videoId" component={WatchVideo} />
                 <Route path="*" component={NotFound} />
               </Switch>
             </ThemeProvider>
