@@ -34,3 +34,13 @@ export async function addVideo(video) {
 export async function addVideoView(videoId) {
   await client.get(`/videos/${videoId}/view`)
 }
+
+export async function likeVideo(videoId) {
+  await client.get(`/videos/${videoId}/like`)
+  await queryCache.invalidateQueries(["WatchVideo", videoId])
+}
+
+export async function dislikeVideo(videoId) {
+  await client.get(`/videos/${videoId}/dislike`)
+  await queryCache.invalidateQueries(["WatchVideo", videoId])
+}
