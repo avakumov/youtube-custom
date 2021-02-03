@@ -8,6 +8,7 @@ import VideoPlayer from "../components/VideoPlayer"
 import Button from "../styles/Button"
 import Wrapper from "../styles/WatchVideo"
 import VideoCard from "../components/VideoCard"
+import { formatCreatedAt } from "../utils/date"
 
 function WatchVideo() {
   const { videoId } = useParams()
@@ -54,6 +55,7 @@ function WatchVideo() {
           <div className="video-info-stats">
             <p>
               <span>{video.views} views</span> <span>•</span>{" "}
+              <span>Premiered {formatCreatedAt(video.createdAt)}</span>
             </p>
 
             <div className="likes-dislikes flex-row">
