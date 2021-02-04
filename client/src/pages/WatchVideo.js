@@ -9,6 +9,7 @@ import Button from "../styles/Button"
 import Wrapper from "../styles/WatchVideo"
 import VideoCard from "../components/VideoCard"
 import { formatCreatedAt } from "../utils/date"
+import NoResult from "../components/NoResult"
 
 function WatchVideo() {
   const { videoId } = useParams()
@@ -25,7 +26,7 @@ function WatchVideo() {
 
   if (!isLoadingVideo && !video) {
     return (
-      <div
+      <NoResult
         title="Page not found"
         text="The page you are looking for is not found or it may have been removed"
       />
