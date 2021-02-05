@@ -2,7 +2,7 @@
 import React from "react"
 import { useQuery } from "react-query"
 import { Link, useParams } from "react-router-dom"
-import { client } from "../utils/api-client"
+import { client, dislikeVideo, likeVideo } from "../utils/api-client"
 import { DislikeIcon, LikeIcon } from "../components/Icons"
 import VideoPlayer from "../components/VideoPlayer"
 import Button from "../styles/Button"
@@ -10,9 +10,11 @@ import Wrapper from "../styles/WatchVideo"
 import VideoCard from "../components/VideoCard"
 import { formatCreatedAt } from "../utils/date"
 import NoResult from "../components/NoResult"
+import useAuthAction from "../hooks/use-auth-action"
 
 function WatchVideo() {
   const { videoId } = useParams()
+  const handleAuthAction = useAuthAction()
   const { data: video, isLoading: isLoadingVideo } = useQuery(["WatchVideo", videoId], () =>
     client.get(`/videos/${videoId}`).then((res) => res.data.video)
   )
@@ -35,10 +37,12 @@ function WatchVideo() {
 
   const handleLikeVideo = (videoId) => {
     // likeVideo(videoId);
+    handleAuthAction(likeVideo, videoId)
   }
 
   const handleDislikeVideo = (videoId) => {
     // dislikeVideo(videoId);
+    handleAuthAction(dislikeVideo, videoId)
   }
 
   const handleToggleSubscribe = (channelId) => {

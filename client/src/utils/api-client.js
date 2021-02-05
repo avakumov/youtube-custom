@@ -1,6 +1,5 @@
 import axios from "axios"
-
-import { queryCache } from "react-query"
+import { queryClient } from "../App"
 
 export const client = axios.create({
   baseURL: "http://localhost:5555/api/v1",
@@ -37,10 +36,10 @@ export async function addVideoView(videoId) {
 
 export async function likeVideo(videoId) {
   await client.get(`/videos/${videoId}/like`)
-  await queryCache.invalidateQueries(["WatchVideo", videoId])
+  await queryClient.invalidateQueries(["WatchVideo", videoId])
 }
 
 export async function dislikeVideo(videoId) {
   await client.get(`/videos/${videoId}/dislike`)
-  await queryCache.invalidateQueries(["WatchVideo", videoId])
+  await queryClient.invalidateQueries(["WatchVideo", videoId])
 }

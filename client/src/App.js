@@ -11,7 +11,7 @@ import Home from "./pages/Home"
 import WatchVideo from "./pages/WatchVideo"
 import NotFound from "./pages/NotFound"
 
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient()
 
 function App() {
   return (

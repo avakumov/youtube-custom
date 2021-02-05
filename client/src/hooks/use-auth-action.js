@@ -1,6 +1,6 @@
-import { useAuth } from "context/auth-context"
+import { useAuth } from "../context/auth-context"
 import { useGoogleLogin } from "react-google-login"
-import { authenticate } from "utils/api-client"
+import { authenticate } from "../utils/api-client"
 
 export default function useAuthAction() {
   const user = useAuth()
