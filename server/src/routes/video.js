@@ -10,6 +10,7 @@ function getVideoRoutes() {
   router.get("/", getRecommendedVideos)
   router.post("/", protect, addVideo)
   router.get("/:videoId", getAuthUser, getVideo)
+  router.get("/:videoId/view", getAuthUser, addVideoView)
   router.get("/:videoId/like", protect, likeVideo)
   router.get("/:videoId/dislike", protect, dislikeVideo)
 
@@ -286,6 +287,50 @@ async function dislikeVideo(req, res, next) {
           },
         },
         like: -1,
+      },
+    })
+  }
+
+  res.status(200).json({})
+}
+
+async function addVideoView(req, res, next) {
+  const video = await prisma.video.findUnique({
+    where: {
+      id: req.params.videoId,
+    },
+  })
+
+  if (!video) {
+    return next({
+      message: `No video found with id: ${req.params.videoId}`,
+      statusCode: 404,
+    })
+  }
+
+  if (req.user) {
+    await prisma.view.create({
+      data: {
+        video: {
+          connect: {
+            id: req.params.videoId,
+          },
+        },
+        user: {
+          connect: {
+            id: req.user.id,
+          },
+        },
+      },
+    })
+  } else {
+    await prisma.view.create({
+      data: {
+        video: {
+          connect: {
+            id: req.params.videoId,
+          },
+        },
       },
     })
   }
