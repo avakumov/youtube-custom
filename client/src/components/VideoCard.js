@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import Avatar from "../styles/Avatar"
 import Wrapper from "../styles/VideoCard"
+import DeleteVideoDropdown from "./DeleteVideoDropdown"
 
 function VideoCard({ video, hideAvatar, noUsername }) {
   return (
@@ -32,6 +33,7 @@ function VideoCard({ video, hideAvatar, noUsername }) {
             <span>{video.views} views</span> <span>•</span>{" "}
           </p>
         </div>
+        <DeleteVideoDropdown video={video} />
       </div>
     </Wrapper>
   )

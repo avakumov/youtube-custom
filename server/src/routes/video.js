@@ -9,6 +9,7 @@ function getVideoRoutes() {
 
   router.get("/", getRecommendedVideos)
   router.post("/", protect, addVideo)
+  router.delete("/:videoId", protect, deleteVideo)
   router.get("/:videoId", getAuthUser, getVideo)
   router.get("/:videoId/view", getAuthUser, addVideoView)
   router.get("/:videoId/like", protect, likeVideo)
@@ -334,6 +335,53 @@ async function addVideoView(req, res, next) {
       },
     })
   }
+
+  res.status(200).json({})
+}
+
+async function deleteVideo(req, res) {
+  const video = await prisma.video.findUnique({
+    where: {
+      id: req.params.videoId,
+    },
+    select: {
+      userId: true,
+    },
+  })
+
+  if (req.user.id !== video.userId) {
+    return res.status(401).send("You are not authorized to delete this video")
+  }
+
+  await prisma.view.deleteMany({
+    where: {
+      videoId: {
+        equals: req.params.videoId,
+      },
+    },
+  })
+
+  await prisma.videoLike.deleteMany({
+    where: {
+      videoId: {
+        equals: req.params.videoId,
+      },
+    },
+  })
+
+  await prisma.comment.deleteMany({
+    where: {
+      videoId: {
+        equals: req.params.videoId,
+      },
+    },
+  })
+
+  await prisma.video.delete({
+    where: {
+      id: req.params.videoId,
+    },
+  })
 
   res.status(200).json({})
 }
