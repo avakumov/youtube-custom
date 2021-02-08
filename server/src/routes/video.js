@@ -14,6 +14,7 @@ function getVideoRoutes() {
   router.get("/:videoId/view", getAuthUser, addVideoView)
   router.get("/:videoId/like", protect, likeVideo)
   router.get("/:videoId/dislike", protect, dislikeVideo)
+  router.post("/:videoId/comments", protect, addComment)
 
   return router
 }
@@ -384,6 +385,39 @@ async function deleteVideo(req, res) {
   })
 
   res.status(200).json({})
+}
+
+async function addComment(req, res, next) {
+  const video = await prisma.video.findUnique({
+    where: {
+      id: req.params.videoId,
+    },
+  })
+
+  if (!video) {
+    return next({
+      message: `No video found with id: ${req.params.id}`,
+      statusCode: 404,
+    })
+  }
+
+  const comment = await prisma.comment.create({
+    data: {
+      text: req.body.text,
+      user: {
+        connect: {
+          id: req.user.id,
+        },
+      },
+      video: {
+        connect: {
+          id: req.params.videoId,
+        },
+      },
+    },
+  })
+
+  res.status(200).json({ comment })
 }
 
 export { getVideoRoutes }
