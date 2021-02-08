@@ -11,6 +11,7 @@ import VideoCard from "../components/VideoCard"
 import { formatCreatedAt } from "../utils/date"
 import NoResult from "../components/NoResult"
 import useAuthAction from "../hooks/use-auth-action"
+import AddComment from "../components/AddComment"
 
 function WatchVideo() {
   const { videoId } = useParams()
@@ -104,6 +105,7 @@ function WatchVideo() {
 
           <p>{video.description}</p>
         </div>
+        <AddComment video={video} />
       </div>
 
       <div className="related-videos">

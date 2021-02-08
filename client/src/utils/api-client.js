@@ -43,3 +43,10 @@ export async function dislikeVideo(videoId) {
   await client.get(`/videos/${videoId}/dislike`)
   await queryClient.invalidateQueries(["WatchVideo", videoId])
 }
+
+export async function addComment({ video, comment }) {
+  await client.post(`/videos/${video.id}/comments`, {
+    text: comment,
+  })
+  await queryClient.invalidateQueries("WatchVideo", video.id)
+}
