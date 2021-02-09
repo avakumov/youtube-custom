@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { formatCreatedAt } from "../utils/date"
+import DeleteCommentDropdown from "./DeleteCommentDropdown"
 
 function CommentList({ comments }) {
   return comments.map((comment) => <Comment key={comment.id} comment={comment} />)
@@ -23,6 +24,7 @@ function Comment({ comment }) {
         </p>
         <p>{comment.text}</p>
       </div>
+      <DeleteCommentDropdown comment={comment} />
     </div>
   )
 }
