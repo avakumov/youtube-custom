@@ -50,3 +50,8 @@ export async function addComment({ video, comment }) {
   })
   await queryClient.invalidateQueries("WatchVideo", video.id)
 }
+
+export async function deleteComment(comment) {
+  await client.delete(`/videos/${comment.videoId}/comments/${comment.id}`)
+  await queryClient.invalidateQueries("WatchVideo")
+}
