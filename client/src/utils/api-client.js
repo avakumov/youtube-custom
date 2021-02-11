@@ -55,3 +55,8 @@ export async function deleteComment(comment) {
   await client.delete(`/videos/${comment.videoId}/comments/${comment.id}`)
   await queryClient.invalidateQueries("WatchVideo")
 }
+
+export async function deleteVideo(videoId) {
+  await client.delete(`/videos/${videoId}`)
+  await queryClient.invalidateQueries("WatchVideo", videoId)
+}

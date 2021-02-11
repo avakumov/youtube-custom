@@ -34,7 +34,6 @@ function UploadVideoModal({ previewVideo, thumbnail, url, defaultTitle, closeMod
       await addVideo(video)
       closeModal()
       openSnackbar("Video Published!")
-      history.push(`/channel/${user.id}`)
     }
   }
 
