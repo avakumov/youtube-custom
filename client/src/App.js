@@ -9,6 +9,7 @@ import { darkTheme } from "./styles/theme"
 import GlobalStyle from "./styles/GlobalStyle"
 import Home from "./pages/Home"
 import WatchVideo from "./pages/WatchVideo"
+import Channel from "./pages/Channel"
 import NotFound from "./pages/NotFound"
 
 export const queryClient = new QueryClient()
@@ -24,6 +25,7 @@ function App() {
               <Navbar />
               <Switch>
                 <Route exact path="/" component={Home} />
+                <Route path="/channel" component={Channel} />
                 <Route path="/watch/:videoId" component={WatchVideo} />
                 <Route path="*" component={NotFound} />
               </Switch>
