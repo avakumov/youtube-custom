@@ -25,7 +25,7 @@ function App() {
               <Navbar />
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route path="/channel" component={Channel} />
+                <Route path="/channel/:channelId" component={Channel} />
                 <Route path="/watch/:videoId" component={WatchVideo} />
                 <Route path="*" component={NotFound} />
               </Switch>

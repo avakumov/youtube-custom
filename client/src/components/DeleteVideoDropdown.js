@@ -13,7 +13,7 @@ function DeleteVideoDropdown({ video }) {
   const isVideoAuthor = video.userId === user?.id
   async function handleDeleteVideo() {
     await deleteVideo(video.id)
-    history.push("/")
+    history.push(`/channel/${user.id}`)
   }
 
   if (isVideoAuthor) {

@@ -33,7 +33,7 @@ function Channel() {
     ["Channel", userId],
     () => client.get(`/users/${userId}`).then((res) => res.data.user),
     {
-      enabled: userId,
+      enabled: true,
     }
   )
 
