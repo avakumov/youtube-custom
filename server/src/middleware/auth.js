@@ -26,7 +26,6 @@ export async function getAuthUser(req, res, next) {
 }
 
 export async function protect(req, res, next) {
-  console.log("COOKIES: ", req.cookies.token)
   if (!req.cookies.token) {
     return next({
       message: "You must be logged in to visit this route",

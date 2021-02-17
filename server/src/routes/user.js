@@ -1,6 +1,6 @@
 import express from "express"
 import { PrismaClient } from "@prisma/client"
-import { getAuthUser } from "../middleware/auth"
+import { getAuthUser, protect } from "../middleware/auth"
 import { getVideoViews } from "./video"
 
 const prisma = new PrismaClient()
@@ -8,6 +8,7 @@ const prisma = new PrismaClient()
 function getUserRoutes() {
   const router = express.Router()
 
+  router.get("/history", protect, getHistory)
   router.get("/:userId", getAuthUser, getProfile)
 
   return router
@@ -108,6 +109,43 @@ async function getProfile(req, res, next) {
   user.videos = await getVideoViews(videos)
 
   res.status(200).json({ user })
+}
+
+async function getHistory(req, res) {
+  console.log("history")
+  await getVideos(prisma.view, req, res)
+}
+
+async function getVideos(model, req, res) {
+  const videoRelations = await model.findMany({
+    where: {
+      userId: req.user.id,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  })
+
+  const videoIds = videoRelations.map((videoLike) => videoLike.videoId)
+
+  let videos = await prisma.video.findMany({
+    where: {
+      id: {
+        in: videoIds,
+      },
+    },
+    include: {
+      user: true,
+    },
+  })
+
+  if (!videos.length) {
+    return res.status(200).json({ videos })
+  }
+
+  videos = await getVideoViews(videos)
+
+  return res.status(200).json({ videos })
 }
 
 export { getUserRoutes }

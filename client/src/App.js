@@ -11,6 +11,7 @@ import Home from "./pages/Home"
 import WatchVideo from "./pages/WatchVideo"
 import Channel from "./pages/Channel"
 import NotFound from "./pages/NotFound"
+import History from "./pages/History"
 
 export const queryClient = new QueryClient()
 
@@ -27,6 +28,7 @@ function App() {
                 <Route exact path="/" component={Home} />
                 <Route path="/channel/:channelId" component={Channel} />
                 <Route path="/watch/:videoId" component={WatchVideo} />
+                <Route path="/feed/history" component={History} />
                 <Route path="*" component={NotFound} />
               </Switch>
             </ThemeProvider>
