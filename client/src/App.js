@@ -1,3 +1,4 @@
+import React from "react"
 import { AuthProvider } from "./context/auth-context"
 import { BrowserRouter as Router } from "react-router-dom"
 import { QueryClientProvider, QueryClient } from "react-query"
@@ -12,10 +13,19 @@ import WatchVideo from "./pages/WatchVideo"
 import Channel from "./pages/Channel"
 import NotFound from "./pages/NotFound"
 import History from "./pages/History"
+import Sidebar from "./components/Sidebar"
+import Container from "./styles/Container"
+import { useLocationChange } from "./hooks/use-location-change"
 
 export const queryClient = new QueryClient()
 
 function App() {
+  const [isSidebarOpen, setSidebarOpen] = React.useState(false)
+  const handleCloseSidebar = () => setSidebarOpen(false)
+  const toggleSidebarOpen = () => setSidebarOpen(!isSidebarOpen)
+
+  //useLocationChange(handleCloseSidebar)
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
@@ -23,14 +33,17 @@ function App() {
           <Router>
             <ThemeProvider theme={darkTheme}>
               <GlobalStyle />
-              <Navbar />
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/channel/:channelId" component={Channel} />
-                <Route path="/watch/:videoId" component={WatchVideo} />
-                <Route path="/feed/history" component={History} />
-                <Route path="*" component={NotFound} />
-              </Switch>
+              <Navbar toggleSidebarOpen={toggleSidebarOpen} />
+              <Sidebar isSidebarOpen={isSidebarOpen} />
+              <Container>
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/channel/:channelId" component={Channel} />
+                  <Route path="/watch/:videoId" component={WatchVideo} />
+                  <Route path="/feed/history" component={History} />
+                  <Route path="*" component={NotFound} />
+                </Switch>
+              </Container>
             </ThemeProvider>
           </Router>
         </SnackbarProvider>
