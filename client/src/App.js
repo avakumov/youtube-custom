@@ -15,6 +15,8 @@ import NotFound from "./pages/NotFound"
 import History from "./pages/History"
 import Sidebar from "./components/Sidebar"
 import Container from "./styles/Container"
+import LikedVideos from "./pages/LikedVideos"
+import Library from "./pages/Library"
 import { useLocationChange } from "./hooks/use-location-change"
 
 export const queryClient = new QueryClient()
@@ -41,6 +43,8 @@ function App() {
                   <Route path="/channel/:channelId" component={Channel} />
                   <Route path="/watch/:videoId" component={WatchVideo} />
                   <Route path="/feed/history" component={History} />
+                  <Route path="/feed/library" component={Library} />
+                  <Route path="/feed/liked_videos" component={LikedVideos} />
                   <Route path="*" component={NotFound} />
                 </Switch>
               </Container>

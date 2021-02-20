@@ -7,11 +7,15 @@ const prisma = new PrismaClient()
 
 function getUserRoutes() {
   const router = express.Router()
-
+  router.get("/liked-videos", protect, getLikedVideos)
   router.get("/history", protect, getHistory)
   router.get("/:userId", getAuthUser, getProfile)
 
   return router
+}
+
+async function getLikedVideos(req, res) {
+  await getVideos(prisma.videoLike, req, res)
 }
 
 async function getProfile(req, res, next) {
