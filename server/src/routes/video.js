@@ -9,6 +9,7 @@ function getVideoRoutes() {
 
   router.get("/", getRecommendedVideos)
   router.post("/", protect, addVideo)
+  router.get("/trending", getTrendingVideos)
   router.delete("/:videoId", protect, deleteVideo)
   router.get("/:videoId", getAuthUser, getVideo)
   router.get("/:videoId/view", getAuthUser, addVideoView)
@@ -442,6 +443,26 @@ async function deleteComment(req, res) {
   })
 
   res.status(200).json({})
+}
+
+async function getTrendingVideos(req, res) {
+  let videos = await prisma.video.findMany({
+    include: {
+      user: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  })
+
+  if (!videos.length) {
+    return res.status(200).json({ videos })
+  }
+
+  videos = await getVideoViews(videos)
+  videos.sort((a, b) => b.views - a.views)
+
+  res.status(200).json({ videos })
 }
 
 export { getVideoRoutes }

@@ -17,6 +17,8 @@ import Sidebar from "./components/Sidebar"
 import Container from "./styles/Container"
 import LikedVideos from "./pages/LikedVideos"
 import Library from "./pages/Library"
+import YourVideos from "./pages/YourVideos"
+import Trending from "./pages/Trending"
 import { useLocationChange } from "./hooks/use-location-change"
 
 export const queryClient = new QueryClient()
@@ -40,11 +42,13 @@ function App() {
               <Container>
                 <Switch>
                   <Route exact path="/" component={Home} />
+                  <Route path="/feed/trending" component={Trending} />
                   <Route path="/channel/:channelId" component={Channel} />
                   <Route path="/watch/:videoId" component={WatchVideo} />
                   <Route path="/feed/history" component={History} />
                   <Route path="/feed/library" component={Library} />
                   <Route path="/feed/liked_videos" component={LikedVideos} />
+                  <Route path="/feed/my_videos" component={YourVideos} />
                   <Route path="*" component={NotFound} />
                 </Switch>
               </Container>
