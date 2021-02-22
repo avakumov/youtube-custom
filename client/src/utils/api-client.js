@@ -21,6 +21,17 @@ export function authenticate(response) {
     })
 }
 
+export async function toggleSubscribeUser(channelId) {
+  await client.get(`/users/${channelId}/toggle-subscribe`)
+
+  await queryClient.invalidateQueries("Channel")
+  await queryClient.invalidateQueries("Channels")
+  await queryClient.invalidateQueries("Subscriptions")
+  await queryClient.invalidateQueries("AuthProvider")
+  await queryClient.invalidateQueries("WatchVideo")
+  await queryClient.invalidateQueries("SearchResults")
+}
+
 export async function signoutUser() {
   await client.get("/auth/signout")
   window.location.pathname = "/"
