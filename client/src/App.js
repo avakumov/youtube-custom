@@ -20,6 +20,7 @@ import Library from "./pages/Library"
 import YourVideos from "./pages/YourVideos"
 import Trending from "./pages/Trending"
 import Subscriptions from "./pages/Subscriptions"
+import SearchResults from "./pages/SearchResults"
 import { useLocationChange } from "./hooks/use-location-change"
 
 export const queryClient = new QueryClient()
@@ -47,6 +48,7 @@ function App() {
                   <Route path="/feed/subscriptions" component={Subscriptions} />
                   <Route path="/channel/:channelId" component={Channel} />
                   <Route path="/watch/:videoId" component={WatchVideo} />
+                  <Route path="/results/:searchQuery" component={SearchResults} />
                   <Route path="/feed/history" component={History} />
                   <Route path="/feed/library" component={Library} />
                   <Route path="/feed/liked_videos" component={LikedVideos} />
