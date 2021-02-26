@@ -8,6 +8,7 @@ const prisma = new PrismaClient()
 function getUserRoutes() {
   const router = express.Router()
   router.get("/", protect, getRecommendedChannels)
+  router.put("/", protect, editUser)
   router.get("/liked-videos", protect, getLikedVideos)
   router.get("/history", protect, getHistory)
   router.get("/subscriptions", protect, getFeed)
@@ -16,6 +17,23 @@ function getUserRoutes() {
   router.get("/:userId/toggle-subscribe", protect, toggleSubscribe)
 
   return router
+}
+async function editUser(req, res) {
+  const { username, cover, avatar, about } = req.body
+
+  const user = await prisma.user.update({
+    where: {
+      id: req.user.id,
+    },
+    data: {
+      username,
+      cover,
+      avatar,
+      about,
+    },
+  })
+
+  res.status(200).json({ user })
 }
 
 async function searchUser(req, res, next) {

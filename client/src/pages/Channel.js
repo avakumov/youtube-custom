@@ -10,10 +10,11 @@ import { useQuery } from "react-query"
 import { useParams } from "react-router-dom"
 import ChannelSkeleton from "../skeletons/WatchVideoSkeleton"
 import Button from "../styles/Button"
-import { client } from "../utils/api-client"
+import { client, toggleSubscribeUser } from "../utils/api-client"
 import { VidIcon } from "../components/Icons"
 import SignUpCard from "../components/SignUpCard"
 import Wrapper from "../styles/Channel"
+import EditProfile from "../components/EditProfile"
 
 const activeTabStyle = {
   borderBottom: "2px solid white",
@@ -50,7 +51,9 @@ function Channel() {
   if (isLoading) return <ChannelSkeleton />
   if (isError) return <ErrorMessage error={error} />
 
-  const handleToggleSubscribe = () => {}
+  const handleToggleSubscribe = () => {
+    handleAuthAction(toggleSubscribeUser, channel.id)
+  }
 
   return (
     <Wrapper editProfile={channel.isMe}>
@@ -67,7 +70,7 @@ function Channel() {
               <span className="secondary">{channel.subscribersCount} subscribers</span>
             </div>
           </div>
-          {channel.isMe && <>edit profile</>}
+          {channel.isMe && <EditProfile profile={channel} />}
 
           {!channel.isMe && !channel.isSubscribed && (
             <Button onClick={handleToggleSubscribe}>Subscribe</Button>

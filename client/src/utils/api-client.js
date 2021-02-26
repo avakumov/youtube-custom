@@ -20,6 +20,10 @@ export function authenticate(response) {
       console.log("Sign in error: ", err.response)
     })
 }
+export async function updateUser(user) {
+  await client.put("/users", user)
+  await queryClient.invalidateQueries("Channel")
+}
 
 export async function toggleSubscribeUser(channelId) {
   await client.get(`/users/${channelId}/toggle-subscribe`)
