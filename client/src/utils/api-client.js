@@ -1,5 +1,5 @@
 import axios from "axios"
-import { queryClient } from "../App"
+import { queryClient } from "../components/AppProviders"
 
 export const client = axios.create({
   baseURL: "http://localhost:5555/api/v1",
