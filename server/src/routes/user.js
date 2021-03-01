@@ -344,7 +344,6 @@ async function getProfile(req, res, next) {
 }
 
 async function getHistory(req, res) {
-  console.log("history")
   await getVideos(prisma.view, req, res)
 }
 

@@ -13,7 +13,6 @@ export function AuthProvider({ children }) {
         console.log(err)
       })
   )
-  console.log(data)
   const user = data || null
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>
