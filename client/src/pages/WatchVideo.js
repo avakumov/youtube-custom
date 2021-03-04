@@ -12,6 +12,7 @@ import { formatCreatedAt } from "../utils/date"
 import NoResult from "../components/NoResult"
 import useAuthAction from "../hooks/use-auth-action"
 import AddComment from "../components/AddComment"
+import ChannelSkeleton from "../skeletons/WatchVideoSkeleton"
 
 function WatchVideo() {
   const { videoId } = useParams()
@@ -24,7 +25,7 @@ function WatchVideo() {
   )
 
   if (isLoadingVideo || isLoadingNext) {
-    return <div>loading...</div>
+    return <ChannelSkeleton />
   }
 
   if (!isLoadingVideo && !video) {
