@@ -2,8 +2,7 @@ import axios from "axios"
 import { queryClient } from "../components/AppProviders"
 
 export const client = axios.create({
-  baseURL: "http://localhost:5555/api/v1",
-  withCredentials: true,
+  baseURL: "/api/v1",
 })
 
 export function authenticate(response) {
