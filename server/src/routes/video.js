@@ -10,6 +10,7 @@ function getVideoRoutes() {
   router.get("/", getRecommendedVideos)
   router.post("/", protect, addVideo)
   router.get("/trending", getTrendingVideos)
+  router.get("/search", searchVideos)
   router.delete("/:videoId", protect, deleteVideo)
   router.get("/:videoId", getAuthUser, getVideo)
   router.get("/:videoId/view", getAuthUser, addVideoView)
@@ -19,6 +20,45 @@ function getVideoRoutes() {
   router.delete("/:videoId/comments/:commentId", protect, deleteComment)
 
   return router
+}
+
+async function searchVideos(req, res, next) {
+  if (!req.query.query) {
+    return next({
+      message: "Please enter a search query",
+      statusCode: 400,
+    })
+  }
+
+  let videos = await prisma.video.findMany({
+    include: {
+      user: true,
+    },
+    where: {
+      OR: [
+        {
+          title: {
+            contains: req.query.query,
+            mode: "insensitive",
+          },
+        },
+        {
+          description: {
+            contains: req.query.query,
+            mode: "insensitive",
+          },
+        },
+      ],
+    },
+  })
+
+  if (!videos.length) {
+    return res.status(200).json({ videos })
+  }
+
+  videos = await getVideoViews(videos)
+
+  res.status(200).json({ videos })
 }
 
 export async function getVideoViews(videos) {
